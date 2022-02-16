@@ -10,6 +10,16 @@ target_include_directories(
 target_link_libraries(opentelemetry_exporter_ostream_span
                       PUBLIC opentelemetry_trace)
 
+add_library(opentelemetry_exporter_ostream_span_wrapper src/span_exporter_wrapper.cc)
+
+set_target_properties(opentelemetry_exporter_ostream_span_wrapper
+                      PROPERTIES EXPORT_NAME ostream_span_exporter_wrapper)
+
+target_include_directories(
+  opentelemetry_exporter_ostream_span_wrapper
+  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>")
+
+
 install(
   TARGETS opentelemetry_exporter_ostream_span
   EXPORT "${PROJECT_NAME}-target"
